@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- FORM PARA INCLUIR LAS ETIQUETAS res.partner.category y el boton Crear Iniciativas EN LA VISTA FORM DE product.template-->
+        <record id="product_template_category_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.category.view.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">                
+                    <field name="al_res_partner_category_ids" widget="many2many_tags" placeholder="Etiquetas..."/>                                      
+                </field>
+                <field name="list_price" position="after">                
+                	<button name="create_leads" type="object" class="oe_highlight" string="Crear Iniciativas" /> 
+                </field>                
+            </field>
+        </record>
+        <!-- FORM PARA INCLUIR EL BOTON Crear Iniciativas en res.partner  -->
+        <record id="res_partner_crm_product_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.crm.product.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="after">                 	
+                	<group string="" colspan="4">                    	
+                    	<button name="create_leads" type="object" class="oe_highlight" string="Crear Iniciativas" />
+                   	</group>
+                </field>
+            </field>
+        </record>        
+		<!-- FORM PARA INCLUIR EL PRODUCTO ASOCIADO EN LA VISTA FORM DE crm.lead (Iniciativas)  -->
+        <record id="crm_product_form_leads_inherit" model="ir.ui.view">
+            <field name="name">crm.product.leads.view.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="product_id" widget="many2one" placeholder="Producto"/>                    
+                </field>
+            </field>
+        </record>
+		<!-- FORM PARA INCLUIR EL PRODUCTO ASOCIADO EN LA VISTA FORM DE crm.lead (Oportunidades)  -->
+        <record id="crm_product_form_oppor_inherit" model="ir.ui.view">
+            <field name="name">crm.product.oppor.view.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="product_id" widget="many2one" placeholder="Producto"/>                    
+                </field>
+            </field>
+        </record>        
+        <!-- TREE PARA INCLUIR BOTONES EN LA VISTA TREE DE INICIATIVAS-->
+		<record model="ir.ui.view" id="crm_lead_phone_event_button_tree_view">
+			<field name="name">crm_lead_phone_event_button.view.tree</field>
+			<field name="model">crm.lead</field>
+			<field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>     
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<data>        
+					<field name="stage_id" position="after"> 						
+						<button string="Planificar Llamada" icon="terp-call-start" name="create_phonecall" type="object"/>           
+						<button string="Planificar Reunión" icon="gtk-redo" name="create_event" type="object"/>
+					</field>
+				</data>                            
+			</field>
+		</record>
+	</data>
+</openerp>

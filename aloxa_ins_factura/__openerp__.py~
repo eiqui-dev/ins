@@ -1,0 +1,14 @@
+{ 
+  'name':'Factura In&s', 
+  'description': 'Informe de factura In&s', 
+  'version':'1.0',
+  'author':'David Souto', 
+  'application': True,' 
+  'data': ['views/factura1_ins_report.xml',
+           'views/factura1_ins_layout.xml',
+           'views/factura1_ins_layout_header.xml',
+           'views/factura1_ins_layout_footer.xml'],
+
+  'category': 'Theme/Creative', 
+  'depends': ['website', 'website_less'], 
+}
